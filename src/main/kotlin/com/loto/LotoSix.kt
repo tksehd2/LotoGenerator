@@ -1,4 +1,4 @@
-package com.example.demo
+package com.loto
 
 import org.springframework.core.io.ClassPathResource
 import java.io.InputStreamReader

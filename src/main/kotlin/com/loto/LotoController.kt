@@ -1,11 +1,9 @@
-package com.example.demo
+package com.loto
 
-import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
-import java.io.InputStreamReader
 
 @Controller
 class LotoController{
@@ -29,7 +27,7 @@ class LotoController{
 
     @GetMapping("/generate")
     fun generate(model: Model):String{
-        val result = LotoSix.pickNumber(81,85)
+        val result = LotoSix.pickNumber(81, 85)
         model["info"] = true
         model["result"] = result
         return "index"
