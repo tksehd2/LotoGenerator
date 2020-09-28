@@ -1,0 +1,34 @@
+{{> header}}
+
+<body class="text-center">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead">
+        <div class="inner">
+            <h3 class="masthead-brand">LOTO6</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link " href="/">番号生成</a>
+                <a class="nav-link" href="analytics">当選番号分析</a>
+                <a class="nav-link active" href="#">歴代当選番号</a>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        <div class="row mb-2">
+            <div class="col-4">回数</div>
+            <div class="col-4">当選番号</div>
+            <div class="col-4">数字の出現確率</div>
+        </div>
+        {{#prizedItems}}
+            <div class="row mb-2">
+                <div class="col-4">{{times}}</div>
+                <div class="col-4">{{numbers}}</div>
+                <div class="col-4">{{total_rates}}%</div>
+            </div>
+        {{/prizedItems}}
+    </main>
+</div>
+</body>
+
+{{> footer}}

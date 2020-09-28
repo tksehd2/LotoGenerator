@@ -1,0 +1,40 @@
+{{> header}}
+
+<body class="text-center">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead">
+        <div class="inner">
+            <h3 class="masthead-brand">LOTO6</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="/">番号生成</a>
+                <a class="nav-link" href="analytics">当選番号分析</a>
+                <a class="nav-link" href="history">歴代当選番号</a>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        <p class="lead">下のボタンを押してロト６の番号が作れます。当選番号分析結果により確率台は81%から86%までと設定されています。</p>
+        <p class="lead">
+            <a href="/generate" class="btn btn-lg btn-secondary">つくる</a>
+        </p>
+        {{#info}}
+            <p class="lead">生成結果</p>
+            <div class="row mb-1">
+                <div class="col-4">確率台</div>
+                <div class="col-4">ロト６番号</div>
+                <div class="col-4">番号の確率総合</div>
+            </div>
+        {{/info}}
+        {{#result}}
+            <div class="row mb-1">
+                <div class="col-4">{{numbers}}</div>
+                <div class="col-4">{{total_rates}}</div>
+            </div>
+        {{/result}}
+    </main>
+</div>
+</body>
+
+{{> footer}}
