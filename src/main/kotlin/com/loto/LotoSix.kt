@@ -40,34 +40,34 @@ object LotoSix {
             i to (count.toFloat() / prizedItems.size.toFloat()) * 100.0f
         }.toMap()
     }
-    private val numberTable: Map<Int, List<Set<Int>>> by lazy {
-        val resource = ClassPathResource("data/num_array")
-        InputStreamReader(resource.inputStream, "UTF-8").use { reader ->
-            var map = mutableMapOf<Int, MutableList<Set<Int>>>()
-            for (line in reader.readLines()) {
-                val number = line.split(",").map { it.toInt() }.toSet()
-                val totalRates = calcTotalRates(number)
-                val key = totalRates.toInt()
-
-                if ((number - expectNumbers).size != number.size) {
-                    continue
-                }
-                if (!checkSerialNumber(number, 2)){
-                    continue
-                }
-                if(isPrized(number)){
-                    continue
-                }
-
-                if (!map.containsKey(key)) {
-                    map[key] = mutableListOf()
-                }
-
-                map[key]?.add(number)
-            }
-            map
-        }
-    }
+//    private val numberTable: Map<Int, List<Set<Int>>> by lazy {
+//        val resource = ClassPathResource("data/num_array")
+//        InputStreamReader(resource.inputStream, "UTF-8").use { reader ->
+//            var map = mutableMapOf<Int, MutableList<Set<Int>>>()
+//            for (line in reader.readLines()) {
+//                val number = line.split(",").map { it.toInt() }.toSet()
+//                val totalRates = calcTotalRates(number)
+//                val key = totalRates.toInt()
+//
+//                if (!expectNumbers.intersect(number).isEmpty()) {
+//                    continue
+//                }
+//                if (!checkSerialNumber(number, 2)){
+//                    continue
+//                }
+//                if(isPrized(number)){
+//                    continue
+//                }
+//
+//                if (!map.containsKey(key)) {
+//                    map[key] = mutableListOf()
+//                }
+//
+//                map[key]?.add(number)
+//            }
+//            map
+//        }
+//    }
 
     // Data Processing
     val sortedRateTable: Map<Int, Float> by lazy { rateTable.toList().sortedBy { it.second }.toMap() }
@@ -129,10 +129,20 @@ object LotoSix {
     }
 
     fun pickNumber(minRate: Int, maxRate: Int): List<LotoItem> {
-        return (minRate..maxRate).map {
-            val number = numberTable[it]?.random()!!
-            LotoItem("", number, numberToRates(number), calcTotalRates(number))
+        var result = mutableListOf<LotoItem>()
+        val prized = prizedItems[0].numbers
+         (minRate..(maxRate+1)).forEach {
+            val resource = ClassPathResource("data/cached/$it")
+            InputStreamReader(resource.inputStream).use { stream->
+                val number = stream.readLines().random().split(",").map { it.toInt() }.toSet()
+                var intersect = prized.intersect(number).joinToString(separator = " ")
+                if (intersect == "") {
+                    intersect = "なし"
+                }
+                result.add(LotoItem(intersect, number, numberToRates(number), calcTotalRates(number)))
+            }
         }
+        return result
     }
 
     // Data Struct

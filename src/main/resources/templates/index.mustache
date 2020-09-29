@@ -15,22 +15,28 @@
     </header>
 
     <main role="main" class="inner cover">
-        <p class="lead">下のボタンを押してロト６の番号が作れます。当選番号分析結果により確率台は81%から86%までと設定されています。</p>
+        <p class="lead">直近の当選番号</p>
+        <h2>{{recently_number}}</h2>
+        <h5>（{{recently_rate}}%）</h5>
         <p class="lead">
-            <a href="/generate" class="btn btn-lg btn-secondary">つくる</a>
+            <a href="/generate" class="btn btn-lg btn-secondary">番号生成</a>
         </p>
         {{#info}}
-            <p class="lead">生成結果</p>
+            <p class="lead">結果</p>
             <div class="row mb-1">
-                <div class="col-4">確率台</div>
-                <div class="col-4">ロト６番号</div>
+                <div class="col-4">番号</div>
                 <div class="col-4">番号の確率総合</div>
+                <div class="col-4">当たり</div>
             </div>
+        {{/info}}
+        {{^info}}
+            <p>番号生成ボタンを押してろと番号が作れます。</p>
         {{/info}}
         {{#result}}
             <div class="row mb-1">
                 <div class="col-4">{{numbers}}</div>
                 <div class="col-4">{{total_rates}}</div>
+                <div class="col-4">{{times}}</div>
             </div>
         {{/result}}
     </main>

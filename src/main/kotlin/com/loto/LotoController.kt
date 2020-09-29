@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping
 class LotoController{
 
     @GetMapping("/")
-    fun index(model: Model): String = "index"
+    fun index(model: Model): String {
+        model["recently_number"] = LotoSix.prizedItems[0].numbers.joinToString(separator = " ")
+        model["recently_rate"] = LotoSix.prizedItems[0].total_rates
+
+        return "index"
+    }
 
     @GetMapping("/analytics")
     fun analytics(model: Model): String {
@@ -28,6 +33,9 @@ class LotoController{
     @GetMapping("/generate")
     fun generate(model: Model):String{
         val result = LotoSix.pickNumber(81, 85)
+
+        model["recently_number"] = LotoSix.prizedItems[0].numbers.joinToString(separator = " ")
+        model["recently_rate"] = LotoSix.prizedItems[0].total_rates
         model["info"] = true
         model["result"] = result
         return "index"
